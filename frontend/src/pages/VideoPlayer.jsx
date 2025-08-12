@@ -68,20 +68,20 @@ function VideoPlayer({ currentUser = "guest" }) {
       const res = await fetch(`http://localhost:8080/api/videos/${videoId}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `JWT ${localStorage.getItem('token')}`,
         },
       });
       if (!res.ok) throw new Error('Failed to delete video');
 
       alert('Video deleted successfully');
-      navigate('/'); // Redirect after deletion
+      navigate('/'); // Redirect to home page after deletion
     } catch (err) {
       alert(err.message);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/video/edit/${videoId}`);
+    navigate(`/video/edit/${videoId}`); //Redirect to video page
   };
 
   return (
@@ -90,32 +90,15 @@ function VideoPlayer({ currentUser = "guest" }) {
       <div className="p-4 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <div className="w-full aspect-video bg-black mb-4">
-            <video
-              src={video.videoUrl}
-              controls
-              className="w-full h-full object-contain"
-              poster={video.thumbnailUrl}
-            />
+            <video src={video.videoUrl} controlsclassName="w-full h-full object-contain" poster={video.thumbnailUrl} />
           </div>
-
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-xl font-semibold mb-1">{video.title}</h2>
             
               <div className="flex space-x-2">
-                <button
-                  onClick={handleEdit}
-                  className="px-3 py-1 bg-blue-500 text-white rounded"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="px-3 py-1 bg-red-500 text-white rounded"
-                >
-                  Delete
-                </button>
+                <button onClick={handleEdit} className="px-3 py-1 bg-blue-500 text-white rounded">Edit</button>
+                <button onClick={handleDelete} className="px-3 py-1 bg-red-500 text-white rounded"> Delete</button>
               </div>
-            
           </div>
 
           <p className="text-sm text-gray-600 mb-2">
@@ -125,16 +108,10 @@ function VideoPlayer({ currentUser = "guest" }) {
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm font-medium">Channel: {video.uploader?.username || 'Unknown'}</p>
             <div className="space-x-2">
-              <button
-                onClick={() => setLikes(likes + 1)}
-                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-              >
-                <BiSolidLike /> {likes}
+              <button onClick={() => setLikes(likes + 1)} className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"> 
+               <BiSolidLike /> {likes}
               </button>
-              <button
-                onClick={() => setDislikes(dislikes + 1)}
-                className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-              >
+              <button onClick={() => setDislikes(dislikes + 1)}className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"  >
                 <BiSolidDislike /> {dislikes}
               </button>
             </div>

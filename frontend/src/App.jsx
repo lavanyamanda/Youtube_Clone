@@ -12,14 +12,9 @@ function App() {
 
   return (
     <BrowserRouter>
-  
-
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              searchQuery={searchQuery}
+        <Route path="/" element={
+            <Home searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               isSidebarOpen={isSidebarOpen}
             />
@@ -32,5 +27,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

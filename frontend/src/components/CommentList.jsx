@@ -31,7 +31,7 @@ function CommentList({ comments, setComments, videoId, currentUser }) {
     }
   };
 
-  // Start editing a comment
+  // Edit a comment
   const handleEditClick = (id, currentText) => {
     setEditId(id);
     setEditText(currentText);
@@ -82,26 +82,12 @@ function CommentList({ comments, setComments, videoId, currentUser }) {
   return (
     <div className="mb-4">
       {/* Name input */}
-      <input
-        type="text"
-        placeholder="Your name"
-        className="w-full p-2 border rounded mb-2"
-        value={userName}
-        onChange={e => setUserName(e.target.value)}
-      />
+      <input  type="text"  placeholder="Your name" className="w-full p-2 border rounded mb-2" value={userName} onChange={e => setUserName(e.target.value)} />
 
       {/* New comment input */}
-      <textarea
-        placeholder="Add a comment..."
-        className="w-full p-2 border rounded mb-2"
-        value={newComment}
-        onChange={e => setNewComment(e.target.value)}
-      />
+      <textarea placeholder="Add a comment..." className="w-full p-2 border rounded mb-2"  value={newComment} onChange={e => setNewComment(e.target.value)} />
 
-      <button
-        onClick={handleAddComment}
-        className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 mb-4"
-      >
+      <button onClick={handleAddComment} className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 mb-4">
         Comment
       </button>
 
@@ -116,28 +102,17 @@ function CommentList({ comments, setComments, videoId, currentUser }) {
 
           {editId === comment._id ? (
             <>
-              <textarea
-                value={editText}
-                onChange={e => setEditText(e.target.value)}
-                className="w-full p-2 border rounded my-2"
-              />
-              <button
-                onClick={handleSaveEdit}
-                className="bg-green-600 text-white px-3 py-1 rounded mr-2"
-              >
+              <textarea value={editText} onChange={e => setEditText(e.target.value)} className="w-full p-2 border rounded my-2" />
+              <button  onClick={handleSaveEdit} className="bg-green-600 text-white px-3 py-1 rounded mr-2" >
                 Save
               </button>
-              <button
-                onClick={handleCancelEdit}
-                className="bg-gray-400 text-white px-3 py-1 rounded"
-              >
+              <button  onClick={handleCancelEdit} className="bg-gray-400 text-white px-3 py-1 rounded"  >
                 Cancel
               </button>
             </>
           ) : (
             <>
               <p className="my-2">{comment.text}</p>
-              {/* Anyone can edit/delete for now */}
               <div className="flex space-x-2 text-sm text-blue-600">
                 <button onClick={() => handleEditClick(comment._id, comment.text)}>Edit</button>
                 <button onClick={() => handleDelete(comment._id)}>Delete</button>

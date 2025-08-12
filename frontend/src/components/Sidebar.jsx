@@ -6,6 +6,7 @@ function Sidebar() {
         <SidebarItem label="Home" active />
         <SidebarItem label="Shorts" />
         <SidebarItem label="Subscriptions" />
+        <SidebarItem label="Trending" />
       </div>
 
       <hr className="my-3 border-gray-300" />
@@ -14,6 +15,8 @@ function Sidebar() {
       <div className="space-y-1">
         <SidebarItem label="You" />
         <SidebarItem label="History" />
+        <SidebarItem label="Watch Later" />
+        <SidebarItem label="Liked videos" />
       </div>
 
       <hr className="my-3 border-gray-300" />

@@ -30,7 +30,7 @@ function Home({ searchQuery, setSearchQuery }) {
     fetchVideos();
   }, []);
 
-  // Filter videos based on search query and category
+  // Filter videos based on category
   const filteredVideos = videos.filter((video) => {
     const matchesSearch = video.title.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || video.category === selectedCategory;
@@ -42,13 +42,13 @@ function Home({ searchQuery, setSearchQuery }) {
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Top Header with Search & Sidebar Toggle */}
+      {/* Header*/}
       <Header
         setSearchQuery={setSearchQuery}
         toggleSidebar={() => setIsSidebarOpen(prev => !prev)}
       />
 
-      {/* Main content layout: sidebar + content */}
+      {/* Main content */}
       <div className="flex flex-1">
         {isSidebarOpen && (
           <aside className="w-60 bg-gray-100 border-r border-gray-300">

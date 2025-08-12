@@ -1,5 +1,5 @@
 function VideoCard({ video, showActions = false, onEdit, onDelete, currentUser }) {
-  // currentUser is username string, uploader is an object with username
+
   const isOwner = currentUser && currentUser === video.uploader?.username;
 
   return (
@@ -13,16 +13,10 @@ function VideoCard({ video, showActions = false, onEdit, onDelete, currentUser }
         </p>
         {showActions && isOwner && (
           <div className="mt-2 flex space-x-2">
-            <button
-              onClick={() => onEdit(video)}
-              className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
-            >
+            <button  className="bg-blue-500 text-white px-2 py-1 rounded text-xs"  >
               Edit
             </button>
-            <button
-              onClick={() => onDelete(video._id)}
-              className="bg-red-500 text-white px-2 py-1 rounded text-xs"
-            >
+            <button onClick={() => onDelete(video._id)} className="bg-red-500 text-white px-2 py-1 rounded text-xs" >
               Delete
             </button>
           </div>

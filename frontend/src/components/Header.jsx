@@ -10,7 +10,7 @@ function Header({ toggleSidebar, setSearchQuery }) {
   const user = JSON.parse(localStorage.getItem('user')); // get user from localStorage
 
   const handleSignInClick = () => {
-    navigate('/auth'); // your auth/login page route
+    navigate('/auth');
   };
 
   const handleLogoClick = () => {

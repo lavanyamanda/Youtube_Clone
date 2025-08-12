@@ -1,4 +1,4 @@
-// backend/controllers/commentController.js
+
 import Comment from '../models/CommentModel.js';
 
 export const addComment = async (req, res) => {
@@ -10,7 +10,7 @@ export const addComment = async (req, res) => {
 
     const newComment = await Comment.create({
       videoId,
-      userId: null, // guests allowed
+      userId: null,
       userName: userName || 'Guest',
       channelName: channelName || 'Guest Channel',
       text,

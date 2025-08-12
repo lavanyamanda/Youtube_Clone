@@ -1,4 +1,4 @@
-// backend/routes/commentRoutes.js
+
 import express from 'express';
 import { addComment, getCommentsByVideo, updateComment, deleteComment } from '../controllers/commentController.js';
 

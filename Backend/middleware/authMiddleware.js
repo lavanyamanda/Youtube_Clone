@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/UserModel.js';
 
-const JWT_SECRET = 'SECRETKEY';  // <-- This must be declared here
+const JWT_SECRET = 'SECRETKEY';
 
 async function verifyToken(req, res, next) {
   try {

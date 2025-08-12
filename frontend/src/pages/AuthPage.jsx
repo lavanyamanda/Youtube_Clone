@@ -53,11 +53,10 @@ function AuthPage() {
       setMessage(data.message || (isLogin ? 'Login successful' : 'Registration successful'));
 
       if (isLogin) {
-        // Save token and user info to localStorage
+    
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user)); // make sure backend returns user info
-
-        // Redirect to main YouTube page (change route if needed)
+        localStorage.setItem('user', JSON.stringify(data.user)); 
+        
         navigate('/');
       }
     } catch (err) {
