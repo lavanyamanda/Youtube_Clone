@@ -14,8 +14,6 @@ function VideoPlayer({ currentUser = "guest" }) {
   const [error, setError] = useState(null);
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
-
-  // Comments state separately
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
@@ -30,7 +28,6 @@ function VideoPlayer({ currentUser = "guest" }) {
         setLikes(data.likes || 0);
         setDislikes(data.dislikes || 0);
 
-        // Fetch suggested videos
         const suggestedRes = await fetch(`http://localhost:8080/api/videos`);
         if (!suggestedRes.ok) throw new Error('Failed to load suggested videos');
         let suggested = await suggestedRes.json();
@@ -64,12 +61,34 @@ function VideoPlayer({ currentUser = "guest" }) {
 
   const isOwner = currentUser && currentUser === video.uploader?.username;
 
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this video?')) return;
+
+    try {
+      const res = await fetch(`http://localhost:8080/api/videos/${videoId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      if (!res.ok) throw new Error('Failed to delete video');
+
+      alert('Video deleted successfully');
+      navigate('/'); // Redirect after deletion
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleEdit = () => {
+    navigate(`/video/edit/${videoId}`);
+  };
+
   return (
     <>
       <Header />
       <div className="p-4 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          {/* Video Player */}
           <div className="w-full aspect-video bg-black mb-4">
             <video
               src={video.videoUrl}
@@ -78,19 +97,31 @@ function VideoPlayer({ currentUser = "guest" }) {
               poster={video.thumbnailUrl}
             />
           </div>
-          {/* Video Info */}
+
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-xl font-semibold mb-1">{video.title}</h2>
-            {isOwner && (
+            
               <div className="flex space-x-2">
-                <button className="px-3 py-1 bg-blue-500 text-white rounded">Edit</button>
-                <button className="px-3 py-1 bg-red-500 text-white rounded">Delete</button>
+                <button
+                  onClick={handleEdit}
+                  className="px-3 py-1 bg-blue-500 text-white rounded"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="px-3 py-1 bg-red-500 text-white rounded"
+                >
+                  Delete
+                </button>
               </div>
-            )}
+            
           </div>
+
           <p className="text-sm text-gray-600 mb-2">
             {video.views} views • {new Date(video.createdAt).toLocaleDateString()}
           </p>
+
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm font-medium">Channel: {video.uploader?.username || 'Unknown'}</p>
             <div className="space-x-2">
@@ -108,9 +139,9 @@ function VideoPlayer({ currentUser = "guest" }) {
               </button>
             </div>
           </div>
+
           <p className="mb-6 text-sm">{video.description}</p>
 
-          {/* Pass videoId, comments, setter, and currentUser to CommentList */}
           <CommentList
             comments={comments}
             setComments={setComments}
@@ -119,7 +150,6 @@ function VideoPlayer({ currentUser = "guest" }) {
           />
         </div>
 
-        {/* Suggested Videos */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">Suggested Videos</h3>
           {suggestedVideos.map((vid) => (

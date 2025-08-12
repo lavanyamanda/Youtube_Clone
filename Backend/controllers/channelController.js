@@ -1,5 +1,6 @@
 import Channel from '../models/ChannelModel.js';
 import User from '../models/UserModel.js';
+import Video from '../models/VideoModel.js';
 
 export const createChannel = async (req, res) => {
   try {
@@ -47,6 +48,22 @@ export const getChannelByUser = async (req, res) => {
     }
 
     res.status(200).json(channel);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
+
+export const getVideosByChannel = async (req, res) => {
+  try {
+    const { channelId } = req.params;
+
+    const videos = await Video.find({ channelId });
+    if (!videos.length) {
+      return res.status(404).json({ message: 'No videos found for this channel' });
+    }
+
+    res.status(200).json(videos);
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }

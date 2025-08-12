@@ -1,12 +1,20 @@
 import VideoCard from './VideoCard';
 import { useNavigate } from 'react-router-dom';
 
-function VideoGrid({ videos, showActions = false, currentUser }) {
+function VideoGrid({ videos, showActions = false, currentUser, onEdit, onDelete }) {
   const navigate = useNavigate();
 
-  const handleEdit = (id) => alert(`Edit video ${id}`);
-  const handleDelete = (id) => alert(`Delete video ${id}`);
+  // Pass full video object on edit
+  const handleEdit = (video) => {
+    if (onEdit) onEdit(video);
+  };
 
+  // Pass only video ID on delete
+  const handleDelete = (id) => {
+    if (onDelete) onDelete(id);
+  };
+
+  // Navigate to video detail if not showing owner actions
   const handleVideoClick = (videoId) => {
     if (!showActions) navigate(`/video/${videoId}`);
   };

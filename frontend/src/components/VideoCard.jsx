@@ -14,7 +14,7 @@ function VideoCard({ video, showActions = false, onEdit, onDelete, currentUser }
         {showActions && isOwner && (
           <div className="mt-2 flex space-x-2">
             <button
-              onClick={() => onEdit(video._id)}
+              onClick={() => onEdit(video)}
               className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
             >
               Edit

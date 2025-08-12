@@ -1,4 +1,3 @@
-// controllers/videoController.js
 import Video from '../models/VideoModel.js';
 
 // Create video
@@ -32,6 +31,20 @@ export const getVideoById = async (req, res) => {
     res.status(200).json(video);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching video', error: err.message });
+  }
+};
+
+// Get videos by channel ID
+export const getVideosByChannel = async (req, res) => {
+  try {
+    const { channelId } = req.params;
+    const videos = await Video.find({ channelId }).populate('uploader', 'username');
+    if (!videos.length) {
+      return res.status(404).json({ message: 'No videos found for this channel' });
+    }
+    res.status(200).json(videos);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
 
